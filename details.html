@@ -1,0 +1,57 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Your Details</title>
+</head>
+<body>
+    <h2>Enter your Details</h2>
+    <p class="personal-greeting">
+        You will receive a text message after you save your details.
+    </p>
+    <div class="details-remember">
+        <form action="">
+            <label for="fullname">Enter full name</label><br>
+            <input type="text" id="full_name" required><br>
+            <label for="Ph-no">Enter your phone number</label><br>
+            <input type="text" id="phno" required><br><br>
+            <input type="submit" id="submit_input" value="Save Details">
+        </form>
+    </div>
+    
+</body>
+
+<script>
+    const rememberDet = document.querySelector('.details-remember');
+    const form = document.querySelector('form');
+    const getName = document.querySelector('#full_name');
+    const getNo = document.querySelector('#phno');
+    const submitBtn = document.querySelector('#submit_input');
+
+    const greeting = document.querySelector(".personal-greeting");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+    });
+
+    submitBtn.addEventListener("click", function() {
+        localStorage.setItem("name", getName.value);
+        localStorage.setItem("no",getNo.value);
+
+        nameDisplayCheck();
+    });
+
+    function nameDisplayCheck() {
+        if(localStorage.getItem("name") && localStorage.getItem("no")) {
+            let name=localStorage.getItem("name");
+            let no=localStorage.getItem("no");
+            greeting.textContent = "Your details have been saved. Please check your phone for a sms containing your details!";
+        }else{
+            greeting.textContent = "You will receive a text message after you save your details.";
+        }
+    }
+
+    document.body.onload = nameDisplayCheck;
+</script>
+</html>
